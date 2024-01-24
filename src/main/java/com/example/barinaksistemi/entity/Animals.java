@@ -18,13 +18,13 @@ public class Animals {
     private long id;
 
     @Column(name = "is_sterile")
-    private boolean isSterile;
+    private String isSterile;
 
     @Column(name = "genus")
     private String genus;
 
     @Column(name = "age")
-    private int age;
+    private String age;
 
     @Column(name = "gender")
     private String gender;
@@ -32,12 +32,13 @@ public class Animals {
     @Column(name = "extra_info")
     private String extraInfo;
 
-    @Column(name = "image")
-    private String image;
-
     @Column(name = "state")
     private String state;
 
     @Column(name = "type")
     private String type;
+
+//    @ManyToOne(cascade ={ CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
+//    @JoinColumn(name = "family_id")
+//    private Families family;
 }

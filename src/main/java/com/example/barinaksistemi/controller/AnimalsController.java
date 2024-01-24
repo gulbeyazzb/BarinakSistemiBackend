@@ -19,8 +19,8 @@ public class AnimalsController {
     }
 
     @PostMapping
-    public void saveAnimal(@RequestBody Animals animal){
-        animalsService.saveAnimal(animal);
+    public Animals saveAnimal(@RequestBody Animals animal){
+        return animalsService.saveAnimal(animal);
     }
 
     @GetMapping
