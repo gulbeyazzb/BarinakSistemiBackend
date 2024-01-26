@@ -33,9 +33,13 @@ public class SecurityConfig {
         security.cors().configurationSource(corsConfigurationSource());
         return security.csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> {
+                    auth.requestMatchers("/login/**").permitAll();
+
                     auth.requestMatchers("/**").permitAll();
 
                     auth.requestMatchers("/animal/**").permitAll();
+
+                    auth.requestMatchers("/family/**").permitAll();
 
                     auth.requestMatchers("/swagger-ui/**").permitAll();
 

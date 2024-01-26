@@ -1,5 +1,6 @@
 package com.example.barinaksistemi.service;
 
+import com.example.barinaksistemi.dto.FamilyResponse;
 import com.example.barinaksistemi.entity.Families;
 import com.example.barinaksistemi.repository.FamiliesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,10 +16,10 @@ public class FamiliesServiceImpl implements FamiliesService{
         this.familiesRepository = familiesRepository;
     }
 
-    @Override
-    public Families getFamilyByAnimalId(long id) {
-        return familiesRepository.getFamilyByAnimalId(id);
-    }
+//    @Override
+//    public Families getFamilyByAnimalId(long id) {
+//        return familiesRepository.getFamilyByAnimalId(id);
+//    }
 
     @Override
     public Families saveFamily(Families family) {
@@ -26,7 +27,7 @@ public class FamiliesServiceImpl implements FamiliesService{
     }
 
     @Override
-    public List<Families> getFamilies() {
-        return familiesRepository.findAll();
+    public List<Families> getFamilies(long animalId) {
+        return familiesRepository.getFamilyByAnimalId(animalId);
     }
 }

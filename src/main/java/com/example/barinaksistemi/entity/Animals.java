@@ -5,6 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -38,7 +41,18 @@ public class Animals {
     @Column(name = "type")
     private String type;
 
-//    @ManyToOne(cascade ={ CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
-//    @JoinColumn(name = "family_id")
-//    private Families family;
+    @Column(name = "button_text")
+    private String buttonText="Sahiplen";
+
+    @ManyToMany(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
+    @JoinTable(name = "animal_family",schema = "barinak",joinColumns = @JoinColumn(name = "animal_id")
+    ,inverseJoinColumns = @JoinColumn(name = "family_id"))
+    private List<Families> families;
+
+    public void addAnimal(Families family){
+        if(families==null){
+            families=new ArrayList<>();
+        }
+        families.add(family);
+    }
 }

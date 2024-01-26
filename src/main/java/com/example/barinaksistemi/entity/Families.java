@@ -33,15 +33,16 @@ public class Families {
     @Column(name = "history")
     private String history;
 
-    @OneToMany(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH},mappedBy = "animals")
-    @JoinColumn(name = "animal_id")
+    @ManyToMany(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
+    @JoinTable(name = "animal_family",schema = "barinak",joinColumns = @JoinColumn(name = "family_id"),inverseJoinColumns =
+    @JoinColumn(name = "animal_id"))
     private List<Animals> animals;
 
     public void addAnimal(Animals animal){
         if(animals==null){
-            List<Animals> animals=new ArrayList<>();
-            animals.add(animal);
+            animals=new ArrayList<>();
         }
         animals.add(animal);
     }
+
 }

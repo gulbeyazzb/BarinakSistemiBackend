@@ -1,5 +1,6 @@
 package com.example.barinaksistemi.service;
 
+import com.example.barinaksistemi.dto.AnimalRequest;
 import com.example.barinaksistemi.entity.Animals;
 
 import java.util.List;
@@ -9,7 +10,7 @@ public interface AnimalsService {
 
     List<Animals> getAnimals();
 
-    Animals saveAnimal(Animals animal);
+    Animals saveAnimal( Animals animals);
 
     Animals updateAnimalInfo(long id, Animals animal);
 

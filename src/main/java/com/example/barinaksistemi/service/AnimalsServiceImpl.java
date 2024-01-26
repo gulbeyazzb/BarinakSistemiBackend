@@ -1,5 +1,6 @@
 package com.example.barinaksistemi.service;
 
+import com.example.barinaksistemi.dto.AnimalRequest;
 import com.example.barinaksistemi.entity.Animals;
 import com.example.barinaksistemi.repository.AnimalsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,13 +39,16 @@ public class AnimalsServiceImpl implements AnimalsService {
 
     @Override
     public Animals updateAnimalInfo(long id, Animals animal) {
-        Animals foundAnimal=new Animals();
+
         Optional<Animals> animalsOptional=animalsRepository.findById(id);
+
         if(animalsOptional.isPresent()){
-            foundAnimal=animalsOptional.get();
+            Animals foundAnimal=animalsOptional.get();
+            animalsRepository.delete(foundAnimal);
+            return animalsRepository.save(animal);
         }
-        animalsRepository.delete(foundAnimal);
-        return animalsRepository.save(animal);
+        return null;
+        //TODO EXCEPTİON
     }
 
     @Override

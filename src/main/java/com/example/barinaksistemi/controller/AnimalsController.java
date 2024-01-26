@@ -1,5 +1,8 @@
 package com.example.barinaksistemi.controller;
 
+import com.example.barinaksistemi.converter.Converter;
+import com.example.barinaksistemi.dto.AnimalRequest;
+import com.example.barinaksistemi.dto.AnimalResponse;
 import com.example.barinaksistemi.entity.Animals;
 import com.example.barinaksistemi.service.AnimalsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,18 +22,28 @@ public class AnimalsController {
     }
 
     @PostMapping
-    public Animals saveAnimal(@RequestBody Animals animal){
-        return animalsService.saveAnimal(animal);
+    public AnimalResponse saveAnimal(@RequestBody AnimalRequest animalRequest){
+        Animals animal=new Animals();
+        animal.setId(animalRequest.getId());
+        animal.setState("Barınakta");
+        animal.setAge(animalRequest.getAge());
+        animal.setGender(animalRequest.getGender());
+        animal.setType(animalRequest.getType());
+        animal.setGenus(animalRequest.getGenus());
+        animal.setIsSterile(animalRequest.getIsSterile());
+        animal.setExtraInfo(animalRequest.getExtraInfo());
+        animal.setButtonText("Sahiplen");
+        return Converter.findAnimal(animalsService.saveAnimal(animal));
     }
 
     @GetMapping
-    public List<Animals> getAll(){
-        return animalsService.getAnimals();
+    public List<AnimalResponse> getAll(){
+        return Converter.findAnimals(animalsService.getAnimals());
     }
 
     @GetMapping("/{id}")
-    public Animals getAnimalById(@PathVariable long id){
-        return animalsService.getAnimalById(id);
+    public AnimalResponse getAnimalById(@PathVariable long id){
+        return Converter.findAnimal(animalsService.getAnimalById(id));
     }
 
     @PutMapping("/{id}")
