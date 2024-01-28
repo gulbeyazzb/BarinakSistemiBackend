@@ -49,7 +49,7 @@ public class Animals {
     ,inverseJoinColumns = @JoinColumn(name = "family_id"))
     private List<Families> families;
 
-    public void addAnimal(Families family){
+    public void addFamily(Families family){
         if(families==null){
             families=new ArrayList<>();
         }

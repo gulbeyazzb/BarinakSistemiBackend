@@ -5,7 +5,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 public interface AnimalsRepository extends JpaRepository<Animals,Long> {
-    @Query(value = "SELECT * FROM barinak.animals as a WHERE a.id=:id",nativeQuery = true)
+    @Query(value = "SELECT a.id,a.type,a.genus,a.gender,a.age,a.isSterile FROM barinak.animals as a " +
+            "WHERE a.id=:id",nativeQuery = true)
     Animals getAnimalById(long id);
 
 }

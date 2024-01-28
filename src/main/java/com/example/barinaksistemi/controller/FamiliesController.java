@@ -2,7 +2,6 @@ package com.example.barinaksistemi.controller;
 
 import com.example.barinaksistemi.converter.Converter;
 import com.example.barinaksistemi.dto.FamilyResponse;
-import com.example.barinaksistemi.dto.FamilyResponseWithAnimals;
 import com.example.barinaksistemi.entity.Animals;
 import com.example.barinaksistemi.entity.Families;
 import com.example.barinaksistemi.service.AnimalsService;
@@ -10,8 +9,10 @@ import com.example.barinaksistemi.service.FamiliesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
+
 
 @RestController
 @RequestMapping("/family")
@@ -26,23 +27,20 @@ public class FamiliesController {
         this.animalsService = animalsService;
     }
 
-//    @GetMapping("/{id}")
-//    public Families getFamilyByAnimalId(@PathVariable long id) {
-//        return familiesService.getFamilyByAnimalId(id);
-//    }
+    @GetMapping("/{animalId}")
+    public FamilyResponse getFamilyByAnimalId(@PathVariable long animalId) {
+        return Converter.findFamily(familiesService.getFamilyByAnimalId(animalId));
+    }
 
     @PostMapping("/{animalId}")
     public FamilyResponse saveFamily(@RequestBody Families family, @PathVariable long animalId) {
         Animals animal = animalsService.getAnimalById(animalId);
         animal.setButtonText("Çocuğu Geri Al");
-        animal.setState(family.getName() + " tarafından sahiplenildi");
+        LocalDate date = LocalDate.now();
+        animal.setState(family.getName() + " tarafından" + date + " tarihinde sahiplenildi");
         family.addAnimal(animal);
-        return Converter.findFamily(familiesService.saveFamily(family));
-    }
 
-    @GetMapping("/{animalId}")
-    public List<FamilyResponse> getFamilies(@PathVariable long animalId) {
-        return Converter.findFamilies(familiesService.getFamilies(animalId));
+        return Converter.findFamily(familiesService.saveFamily(family));
     }
 
 }

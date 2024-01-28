@@ -8,5 +8,5 @@ import java.util.List;
 public interface FamiliesService {
    // Families getFamilyByAnimalId(long id);
     Families saveFamily(Families family);
-    List<Families> getFamilies(long AnimalId);
+    Families getFamilyByAnimalId(long id);
 }

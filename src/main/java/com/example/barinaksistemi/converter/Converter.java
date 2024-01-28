@@ -13,15 +13,16 @@ public class Converter {
 
     public static List<FamilyResponse> findFamilies(List<Families> families) {
         List<FamilyResponse> responses = new ArrayList<>();
-        List<AnimalResponse> animalResponses=new ArrayList<>();
         for (Families family : families) {
             responses.add(new FamilyResponse(family.getId(), family.getName(), family.getSurname(),
-                    family.getPhone()));
+                    family.getPhone(),family.getAddress(),
+                    family.getTckn(),family.getEmail()));
         }
         return responses;
     }
     public static FamilyResponse findFamily(Families family){
-        return new FamilyResponse(family.getId(), family.getName(),family.getSurname(), family.getPhone());
+        return new FamilyResponse(family.getId(), family.getName(),family.getSurname(), family.getPhone(), family.getAddress(),
+                family.getTckn(),family.getEmail());
     }
 
     public static AnimalResponse findAnimal(Animals animal){
