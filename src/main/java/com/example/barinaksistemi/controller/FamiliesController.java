@@ -29,7 +29,12 @@ public class FamiliesController {
 
     @GetMapping("/{animalId}")
     public FamilyResponse getFamilyByAnimalId(@PathVariable long animalId) {
-        return Converter.findFamily(familiesService.getFamilyByAnimalId(animalId));
+      Families family= familiesService.getFamilyByAnimalId(animalId);
+      if(family==null){
+          return null;
+      }else{
+          return Converter.findFamily(family);
+      }
     }
 
     @PostMapping("/{animalId}")

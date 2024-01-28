@@ -22,20 +22,24 @@ public class AnimalsController {
     }
 
     @PostMapping
-    public AnimalResponse saveAnimal(@RequestBody AnimalRequest animalRequest){
-        Animals animal=new Animals();
+    public AnimalResponse saveAnimal(@RequestBody AnimalRequest animalRequest) {
+        Animals presentAnimal = animalsService.getAnimalById(animalRequest.getId());
+
+        Animals animal = new Animals();
+
         animal.setId(animalRequest.getId());
-        animal.setState("Barınakta");
         animal.setAge(animalRequest.getAge());
         animal.setGender(animalRequest.getGender());
         animal.setType(animalRequest.getType());
         animal.setGenus(animalRequest.getGenus());
         animal.setIsSterile(animalRequest.getIsSterile());
         animal.setExtraInfo(animalRequest.getExtraInfo());
-        animal.setButtonText("Sahiplen");
-        return Converter.findAnimal(animalsService.saveAnimal(animal));
-    }
+        animal.setState(presentAnimal != null ? presentAnimal.getState() : "Barınakta");
+        animal.setButtonText(presentAnimal != null ? presentAnimal.getButtonText() : "Sahiplen");
 
+        return Converter.findAnimal(animalsService.saveAnimal(animal));
+
+    }
     @GetMapping
     public List<AnimalResponse> getAll(){
         return Converter.findAnimals(animalsService.getAnimals());
